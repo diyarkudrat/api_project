@@ -1,6 +1,6 @@
 const express = require('express')
 
-const Thing = require('../models/thing.js')
+const Thing = require('../models/shoe.js')
 
 const router = express.Router(); // eslint-disable-line new-cap
 

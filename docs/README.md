@@ -22,9 +22,20 @@ npm start
 
 ## Get all shoes
 
-Send a GET request to URL `localhost:3000/shoes` to get a list of all shoes.
+Send a GET request to URL `localhost:3000/shoes` to get a list of all shoe categories.
 
 Data will look like:
+
+```json
+[
+    {
+        brand: 'Nike',
+        category_type: 'Basketball'
+    }
+]
+```
+
+## Get a specific shoe
 
 ```json
 [
@@ -37,6 +48,8 @@ Data will look like:
         price: '$149.99',
     }
 ]
+
+
 ```
 The id is from the 9 character long code on the size tag for every shoe. This id is unique to the specific shoe model.
 
