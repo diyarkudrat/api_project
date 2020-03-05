@@ -59,7 +59,7 @@ describe('Shoe APIs', () => {
     let shoe = new Shoe(sampleShoe);
     shoe.save().then((savedShoe) => {
       chai.request(app)
-      .get('/shoes')
+      .get('api//shoes')
       .end((err, res) => {
         if(err) {
           return done(err)
@@ -76,7 +76,7 @@ describe('Shoe APIs', () => {
     let shoe = new Shoe(sampleShoe)
     shoe.save().then((savedShoe) => {
       chai.request(app)
-      .get(`/shoes/${savedShoe._id}`)
+      .get(`api/shoes/${savedShoe._id}`)
       .set('jwttoken', jwt.sign({ username: 'test123' }, process.env.JWT_SECRET))
       .end((err, res) => {
         if (err) {
@@ -92,7 +92,7 @@ describe('Shoe APIs', () => {
 
   it('should POST new shoe', (done) => {
     chai.request(app)
-      .post('/shoes')
+      .post('api//shoes')
       .set('jwttoken', jwt.sign({ username: 'test123' }, process.env.JWT_SECRET))
       .send(sampleShoe)
       .then(res => {
@@ -111,22 +111,44 @@ describe('Shoe APIs', () => {
         return done(err)
       })
   })
-  it('should PUT specific shoe', (done) => {
-    let shoe = new Shoe(sampleShoe)
-    shoe.save().then((savedShoe) => {
+  it*'should update a single shoe', function(done) {
+    chai.request(app)
+    .get('/api/shoes')
+    .end(function(err, res) {
       chai.request(app)
-      .get(`/shoes/${savedShoe._id}`)
-      .set('jwttoken', jwt.sign({ username: 'test123' }, process.env.JWT_SECRET))
-      .end((err, res) => {
-        if (err) {
-          return done(err)
-        }
-
-        assert.equal(res.body.name, 'White Cement')
-        assert.equal(res.body.model, 'Air Jordan 3')
-        return done()
+      .put('/api/shoes/' + res.body[0]._id)
+      .send({'name': 'Black Cement'})
+      .end(function(err, res) {
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('object')
+        res.body.should.have.property('UPDATED');
+        res.body.UPDATED.should.be.a('object');
+        res.body.UPDATED.should.have.property('name');
+        res.body.UPDATED.should.have.property('_id');
+        res.body.UPDATED.name.should.equal('Black Cement');
+        done();
       })
     })
-  })
+    it('should delete a single shoe', function(done) {
+      chai.request(app)
+        .get('/api/shoes')
+        .end(function(err, res){
+          chai.request(app)
+            .delete('/api/shoes'+res.body[0]._id)
+            .end(function(err, res){
+              res.should.have.status(200);
+              res.should.be.json;
+              res.body.should.be.a('object');
+              res.body.should.have.property('REMOVED');
+              res.body.REMOVED.should.be.a('object');
+              res.body.REMOVED.should.have.property('name');
+              res.body.REMOVED.should.have.property('_id');
+              res.body.REMOVED.name.should.equal('White Cement');
+              done();
+          });
+        });
+    });
+  }
 
 });
