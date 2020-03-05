@@ -7,7 +7,6 @@ module.exports = (router) => {
     .get(validateToken, controller.getAll); // route protected with the token validation function
 
   router.route('/sign-up')
-    .get(controller.signup)
     .post(controller.add)
 
   router.route('/login')

@@ -9,11 +9,6 @@ const connUri = process.env.MONGO_LOCAL_CONN_URL;
 
 module.exports = {
 
-  signup: (req, res) => {
-    res.render('sign-up').redirect('/api/shoes')
-    
-  },
-
   add: (req, res) => {
     mongoose.connect(connUri, { useNewUrlParser : true }, (err) => {
       let result = {};
@@ -31,7 +26,7 @@ module.exports = {
             result.status = status;
             result.error = err;
           }
-          res.redirect('/api/shoes');
+          res.status(status).send(result);
         });
       } else {
         status = 500;
@@ -42,13 +37,13 @@ module.exports = {
     });
   },
   login: (req, res) => {
-    const { name, password } = req.body;
+    const { username, password } = req.body;
 
     mongoose.connect(connUri, { useNewUrlParser: true }, (err) => {
       let result = {};
       let status = 200;
       if(!err) {
-        User.findOne({name}, (err, user) => {
+        User.findOne({username}, (err, user) => {
           if (!err && user) {
             // We could compare passwords in our model instead of below
             bcrypt.compare(password, user.password).then(match => {
