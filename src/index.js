@@ -4,9 +4,13 @@ const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 
+const mongoose = require('mongoose')
+const mongo_uri = process.env.MONGODB_URI
+mongoose.connect(mongo_uri)
 
 const app = express();
 const router = express.Router();
+
 
 
 app.use(bodyParser.json());
