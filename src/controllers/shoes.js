@@ -156,7 +156,7 @@ module.exports = {
               result.status = status;
               result.error = err;
             }
-            res.status(status).send(result);
+            res.redirect('/api/shoes');
           });
         } else {
           status = 401;
