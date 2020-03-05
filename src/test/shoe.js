@@ -66,7 +66,7 @@ describe('Shoe APIs', () => {
         }
 
         assert.equal(res.status, 200)
-        asser.isArray(res.body)
+        assert.isArray(res.body)
         return done()
       })
     })

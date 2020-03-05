@@ -87,13 +87,36 @@ module.exports = {
   },
   getAll: (req, res) => {
     mongoose.connect(connUri, { useNewUrlParser: true }, (err) => {
-      User.find({}, (err, users) => {
-        if (!err) {
-          res.send(users);
+      let result = {};
+      let status = 200;
+      if (!err) {
+        const payload = req.decoded;
+
+        if (payload && payload.user === 'diyar') {
+          User.find({}, (err, users) => {
+            if (!err) {
+              result.status = status;
+              result.error = err;
+              result.result = users;
+            } else {
+              status = 500;
+              result.status = status;
+              result.error = err;
+            }
+            res.status(status).send(result);
+          });
         } else {
-          console.log('Error', err);
+          status = 401;
+          result.status = status;
+          result.error = `Authentication Error`;
+          res.status(status).send(result);
         }
-      });
+      } else {
+        status = 500;
+        result.status = status;
+        result.error = err;
+        res.status(status).send(result);
+      }
     });
   },
 }

@@ -8,7 +8,7 @@ const ShoeSchema = new Schema({
   model: { type: String },
   type: { type: String },
   year: { type: Number },
-  id: { type: String },
+  SKU: { type: String },
   price: { type: Number }
 })
 
