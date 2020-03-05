@@ -8,6 +8,12 @@ const User = require('../models/users');
 const connUri = process.env.MONGO_LOCAL_CONN_URL;
 
 module.exports = {
+
+  signup: (req, res) => {
+    res.render('sign-up').redirect('/api/shoes')
+    
+  },
+
   add: (req, res) => {
     mongoose.connect(connUri, { useNewUrlParser : true }, (err) => {
       let result = {};
@@ -25,7 +31,7 @@ module.exports = {
             result.status = status;
             result.error = err;
           }
-          res.status(status).send(result);
+          res.redirect('/api/shoes');
         });
       } else {
         status = 500;

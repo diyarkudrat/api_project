@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 
 
 const ShoeSchema = new Schema({
-  name: { type: String },
   model: { type: String },
+  colorways: [{ type: Schema.Types.ObjectId, ref: 'Colorway' }],
   type: { type: String },
   year: { type: Number },
   SKU: { type: String },

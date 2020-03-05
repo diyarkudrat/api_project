@@ -10,8 +10,7 @@ module.exports = {
       let status = 201;
       if (!err) {
         const { name, model, type, year, SKU, price } = req.body;
-        const shoe = new Shoe({ name, model, type, year, SKU, price }); // document = instance of a model
-        // TODO: We can hash the password here before we insert instead of in the model
+        const shoe = new Shoe({ name, model, type, year, SKU, price });
         shoe.save((err, shoe) => {
           if (!err) {
             result.status = status;
@@ -146,7 +145,7 @@ module.exports = {
         const payload = req.decoded;
 
         if (payload) {
-          Shoe.findOneAndRemove(req.params.id, (err, shoes) => {
+          Shoe.findByIdAndDelete(req.params.id, (err, shoes) => {
             if (!err) {
               result.status = status;
               result.error = err;

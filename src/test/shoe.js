@@ -76,7 +76,7 @@ describe('Shoe APIs', () => {
     let shoe = new Shoe(sampleShoe)
     shoe.save().then((savedShoe) => {
       chai.request(app)
-      .get(`/dogs/${savedShoe._id}`)
+      .get(`/shoes/${savedShoe._id}`)
       .set('jwttoken', jwt.sign({ username: 'test123' }, process.env.JWT_SECRET))
       .end((err, res) => {
         if (err) {
@@ -92,7 +92,7 @@ describe('Shoe APIs', () => {
 
   it('should POST new shoe', (done) => {
     chai.request(app)
-      .post('/dogs')
+      .post('/shoes')
       .set('jwttoken', jwt.sign({ username: 'test123' }, process.env.JWT_SECRET))
       .send(sampleShoe)
       .then(res => {
@@ -110,6 +110,23 @@ describe('Shoe APIs', () => {
       }).catch(err => {
         return done(err)
       })
+  })
+  it('should PUT specific shoe', (done) => {
+    let shoe = new Shoe(sampleShoe)
+    shoe.save().then((savedShoe) => {
+      chai.request(app)
+      .get(`/shoes/${savedShoe._id}`)
+      .set('jwttoken', jwt.sign({ username: 'test123' }, process.env.JWT_SECRET))
+      .end((err, res) => {
+        if (err) {
+          return done(err)
+        }
+
+        assert.equal(res.body.name, 'White Cement')
+        assert.equal(res.body.model, 'Air Jordan 3')
+        return done()
+      })
+    })
   })
 
 });
