@@ -24,7 +24,7 @@ module.exports = {
           } else {
             status = 501;
             result.status = status;
-            result.error = err;
+            result.error = err.message;
           }
           res.status(status).send(result);
         });
