@@ -1,5 +1,17 @@
 # Nike Shoes API
 
+## Deployed Site URL
+`https://sneaker-api-dk.herokuapp.com/`
+
+If you do not want to clone the repository, you can use this URL.
+
+For making requests that are described below, use the deployed URL instead of `http://localhost:3000`.
+
+
+### Example
+`https://sneaker-api-dk.herokuapp.com/login`
+
+
 ## Description
 
  RESTful API where you are able to CRUD Nike and Jordan shoes. Sorting functionality to sort through the different models, types, price, id, etc.
