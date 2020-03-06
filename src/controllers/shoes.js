@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Shoe = require('../models/shoe');
 
-const connUri = process.env.MONGO_LOCAL_CONN_URL;
+const connUri = process.env.MONGODB_URI;
 
 module.exports = {
   add: (req, res) => {
