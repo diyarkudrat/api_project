@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/users');
 
-const connUri = process.env.MONGO_LOCAL_CONN_URL;
+const connUri = process.env.MONGODB_URI;
 
 module.exports = {
 
